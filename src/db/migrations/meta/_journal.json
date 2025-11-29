@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1755553896361,
+      "tag": "0000_calm_enchantress",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1756567568233,
+      "tag": "0001_nostalgic_captain_marvel",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1756570559927,
+      "tag": "0002_many_iceman",
+      "breakpoints": true
+    }
+  ]
+}
