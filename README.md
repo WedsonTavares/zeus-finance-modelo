@@ -1,6 +1,6 @@
 # 💰 Zeus Finance
 
-<img width="1920" height="963" alt="image" src="https://github.com/user-attachments/assets/3f588f3d-d359-4fb4-a4ee-6debc591c74d" />
+<img width="1920" height="963" alt="Dashboard" src="./src/assets/dashboard.png" />
 
 Um sistema de controle financeiro pessoal moderno e intuitivo, desenvolvido com Next.js 15 e tecnologias de ponta.
 
