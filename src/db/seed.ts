@@ -25,7 +25,9 @@ async function main() {
 		passwordHash: await bcrypt.hash('admin123', 10),
 		imageUrl: 'https://github.com/shadcn.png',
 	}
-	await db.collection(COLLECTIONS.USERS).insertOne(user)
+	// insert using a cast to avoid MongoDB driver TypeScript incompatibility
+	// (we use string IDs across the app with `createId()`)
+	await db.collection(COLLECTIONS.USERS).insertOne(user as any)
 
 	console.log('✅ Usuário criado com sucesso!')
 
@@ -49,7 +51,7 @@ async function main() {
 	}))
 
 	const categories: Category[] = categoryEntries.map(({ key, ...category }) => category as Category)
-	await db.collection(COLLECTIONS.CATEGORIES).insertMany(categories)
+	await db.collection(COLLECTIONS.CATEGORIES).insertMany(categories as any)
 
 	console.log('✅ Categorias criadas com sucesso!')
 
@@ -246,7 +248,7 @@ async function main() {
 		},
 	]
 
-	await db.collection(COLLECTIONS.TRANSACTIONS).insertMany(transactions)
+	await db.collection(COLLECTIONS.TRANSACTIONS).insertMany(transactions as any)
 
 	console.log('✅ 20 transações criadas com sucesso!')
 	console.log('🎉 Seed concluído!')
