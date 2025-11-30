@@ -65,13 +65,22 @@ export function EditTransactionForm({
 	})
 
 	function handleUpdateTransaction(values: TransactionFormData) {
+		// Combina a data selecionada com a hora atual
+		const selectedDate = dayjs(values.paymentDate)
+		const now = dayjs()
+		const dateWithCurrentTime = selectedDate
+			.hour(now.hour())
+			.minute(now.minute())
+			.second(now.second())
+			.millisecond(now.millisecond())
+		
 		updateTransactionAction.execute({
 			id: transaction.id,
 			description: values.description,
 			categoryId: values.categoryId,
 			type: values.type,
 			amountInCents: values.amount * 100,
-			paymentDate: dayjs(values.paymentDate).toISOString(),
+			paymentDate: dateWithCurrentTime.toISOString(),
 		})
 	}
 

@@ -1,5 +1,6 @@
 'use client'
 
+import dayjs from 'dayjs'
 import { TrendingDownIcon } from 'lucide-react'
 import { EmptyData } from '@/components/empty-data'
 import {
@@ -67,7 +68,7 @@ export function ExpensesByCategoryCard({
 			</CardHeader>
 			<CardContent className="px-2 flex-1">
 				{Object.values(expensesByCategory).length > 0 ? (
-					<ScrollArea className="h-[312px] w-full rounded-md px-4">
+					<ScrollArea className="h-[400px] w-full rounded-md px-4">
 						<div className="space-y-4">
 							{Object.values(expensesByCategory)
 								.sort((a, b) => b.totalInCents - a.totalInCents)

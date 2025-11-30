@@ -29,7 +29,7 @@ export function TransactionsListItem({
 					<div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
 						<span>{transaction.category?.name ?? 'Sem categoria'}</span>
 						<span>•</span>
-						<span>{dayjs(transaction.paymentDate).format('DD/MM/YYYY')}</span>
+						<span>{dayjs(transaction.paymentDate).format('DD/MM/YYYY HH:mm')}</span>
 					</div>
 
 					<div className="flex items-center gap-2 sm:hidden">

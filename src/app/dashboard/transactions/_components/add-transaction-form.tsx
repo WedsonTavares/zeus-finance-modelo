@@ -63,12 +63,21 @@ export function AddTransactionForm() {
 	})
 
 	function handleCreateTransaction(values: TransactionFormData) {
+		// Combina a data selecionada com a hora atual
+		const selectedDate = dayjs(values.paymentDate)
+		const now = dayjs()
+		const dateWithCurrentTime = selectedDate
+			.hour(now.hour())
+			.minute(now.minute())
+			.second(now.second())
+			.millisecond(now.millisecond())
+		
 		createTransactionAction.execute({
 			description: values.description,
 			categoryId: values.categoryId,
 			type: values.type,
 			amountInCents: values.amount * 100,
-			paymentDate: dayjs(values.paymentDate).toISOString(),
+			paymentDate: dateWithCurrentTime.toISOString(),
 		})
 	}
 

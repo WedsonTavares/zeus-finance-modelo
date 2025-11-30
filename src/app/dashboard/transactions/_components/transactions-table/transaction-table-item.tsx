@@ -30,7 +30,7 @@ export function TransactionTableItem({
 			)}
 			<TableCell>{transaction.category?.name ?? 'Sem categoria'}</TableCell>
 			<TableCell>
-				{dayjs(transaction.paymentDate).format('DD/MM/YYYY')}
+				{dayjs(transaction.paymentDate).format('DD/MM/YYYY HH:mm')}
 			</TableCell>
 			<TableCell className="flex items-center gap-2">
 				<FormDialog

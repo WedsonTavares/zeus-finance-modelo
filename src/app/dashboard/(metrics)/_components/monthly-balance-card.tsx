@@ -12,6 +12,8 @@ import {
 import {
 	type ChartConfig,
 	ChartContainer,
+	ChartLegend,
+	ChartLegendContent,
 	ChartTooltip,
 } from '@/components/ui/chart'
 import type { Transaction } from '@/types/transaction'
@@ -19,9 +21,11 @@ import type { Transaction } from '@/types/transaction'
 const chartConfig = {
 	income: {
 		label: 'Receitas',
+		color: 'hsl(142, 76%, 36%)',
 	},
 	expense: {
 		label: 'Despesas',
+		color: 'hsl(0, 84%, 60%)',
 	},
 } satisfies ChartConfig
 
@@ -70,7 +74,7 @@ export function MonthlyBalanceCard({ transactions }: MonthlyBalanceCardProps) {
 					Vejo o quanto você ganhou e gastou no mês de agosto.
 				</CardDescription>
 			</CardHeader>
-			<CardContent className="flex-1 pb-0">
+			<CardContent className="flex-1 pb-4">
 				{transactions.length > 0 ? (
 					<ChartContainer
 						config={chartConfig}
@@ -79,6 +83,7 @@ export function MonthlyBalanceCard({ transactions }: MonthlyBalanceCardProps) {
 						<PieChart>
 							<ChartTooltip cursor={false} content={<CustomTooltip />} />
 							<Pie data={chartData} dataKey="amount" nameKey="type" />
+							<ChartLegend content={<ChartLegendContent nameKey="type" />} />
 						</PieChart>
 					</ChartContainer>
 				) : (

@@ -20,7 +20,7 @@ export function TransactionsTable({ transactions }: TransactionsTableProps) {
 					<TableHead className="font-semibold">Descrição</TableHead>
 					<TableHead className="font-semibold">Valor</TableHead>
 					<TableHead className="font-semibold">Categoria</TableHead>
-					<TableHead className="font-semibold">Data</TableHead>
+					<TableHead className="font-semibold">Data e Hora</TableHead>
 					<TableHead className="w-[40px]">&nbsp;</TableHead>
 				</TableRow>
 			</TableHeader>
