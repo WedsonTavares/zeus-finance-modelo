@@ -75,7 +75,7 @@ function TransactionValue({
 	return (
 		<>
 			{type === 'expense' ? (
-				<span className="text-sm">- {amount}</span>
+				<span className="text-sm text-red-600">- {amount}</span>
 			) : (
 				<span className="text-sm text-green-600">{amount}</span>
 			)}

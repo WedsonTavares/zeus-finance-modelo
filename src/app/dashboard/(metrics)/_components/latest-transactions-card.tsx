@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { BanknoteIcon, EyeIcon } from 'lucide-react'
+import { EyeIcon, TrendingDownIcon, TrendingUpIcon } from 'lucide-react'
 import { EmptyData } from '@/components/empty-data'
 import { PreserveQueryLink } from '@/components/preserve-query-link'
 import { Button } from '@/components/ui/button'
@@ -22,7 +22,9 @@ type LatestTransactionsCardProps = {
 export function LatestTransactionsCard({
 	transactions,
 }: LatestTransactionsCardProps) {
-	const latestTransactions = transactions.slice(0, 4)
+	const latestTransactions = [...transactions]
+		.sort((a, b) => new Date(b.paymentDate).getTime() - new Date(a.paymentDate).getTime())
+		.slice(0, 5)
 
 	return (
 		<Card className="flex flex-col xl:col-span-2 2xl:col-span-1">
@@ -64,7 +66,11 @@ export function TransactionCard({ transaction }: { transaction: Transaction }) {
 		<div className="flex items-center justify-between p-3 border rounded-lg">
 			<div className="flex items-center gap-3">
 				<div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted">
-					<BanknoteIcon className="size-5 text-muted-foreground" />
+					{isIncome ? (
+						<TrendingUpIcon className="size-5 text-green-500" />
+					) : (
+						<TrendingDownIcon className="size-5 text-red-500" />
+					)}
 				</div>
 				<div className="flex flex-col">
 					<span className="font-medium text-sm">{transaction.description}</span>

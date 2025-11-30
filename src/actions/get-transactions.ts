@@ -41,7 +41,7 @@ export async function getTransactions({ month, year }: GetTransactionsParams) {
 				},
 			},
 			{
-				$sort: { paymentDate: -1 },
+				$sort: { paymentDate: -1, _id: -1 },
 			},
 			{
 				$project: {

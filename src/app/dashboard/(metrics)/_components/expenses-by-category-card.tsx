@@ -69,12 +69,15 @@ export function ExpensesByCategoryCard({
 				{Object.values(expensesByCategory).length > 0 ? (
 					<ScrollArea className="h-[312px] w-full rounded-md px-4">
 						<div className="space-y-4">
-							{Object.values(expensesByCategory).map((category) => (
-								<ExpenseCategoryCard
-									key={category.categoryId}
-									category={category}
-								/>
-							))}
+							{Object.values(expensesByCategory)
+								.sort((a, b) => b.totalInCents - a.totalInCents)
+								.slice(0, 5)
+								.map((category) => (
+									<ExpenseCategoryCard
+										key={category.categoryId}
+										category={category}
+									/>
+								))}
 						</div>
 					</ScrollArea>
 				) : (
@@ -96,7 +99,7 @@ export function ExpenseCategoryCard({
 		<div className="flex items-center justify-between p-3 border rounded-lg">
 			<div className="flex items-center gap-3">
 				<div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted">
-					<TrendingDownIcon className="size-5 text-muted-foreground" />
+					<TrendingDownIcon className="size-5 text-red-500" />
 				</div>
 				<div className="flex flex-col">
 					<span className="font-medium text-sm">{category.categoryName}</span>

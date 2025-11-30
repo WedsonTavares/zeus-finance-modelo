@@ -12,18 +12,40 @@ const labels = {
 	balance: 'Saldo',
 }
 
-const icons = {
-	income: <TrendingUpIcon className="size-8 text-green-500" />,
-	expense: <TrendingDownIcon className="size-8 text-red-500" />,
-	balance: <ScaleIcon className="size-8 text-zinc-500" />,
+function parseCurrency(value: string) {
+	if (!value) return 0
+	// Remove currency symbol, spaces, thousands separator and normalize decimal separator
+	const cleaned = value
+		.replace(/\s/g, '')
+		.replace(/R\$/g, '')
+		.replace(/\./g, '')
+		.replace(/,/g, '.')
+		.replace(/[^0-9.\-]/g, '')
+
+	const n = parseFloat(cleaned)
+	return Number.isNaN(n) ? 0 : n
 }
 
 export function SummaryCard({ type, value }: SummaryCardProps) {
+	const numeric = parseCurrency(value)
+
+	let iconColor = 'text-zinc-500'
+	if (type === 'income') iconColor = 'text-green-500'
+	if (type === 'expense') iconColor = 'text-red-500'
+	if (type === 'balance') {
+		if (numeric > 0) iconColor = 'text-green-500'
+		else if (numeric < 0) iconColor = 'text-red-500'
+		else iconColor = 'text-zinc-500'
+	}
+
+	const IconComponent =
+		type === 'income' ? TrendingUpIcon : type === 'expense' ? TrendingDownIcon : ScaleIcon
+
 	return (
 		<Card>
 			<CardContent className="flex items-center gap-4">
 				<div className="size-16 rounded-md bg-muted flex items-center justify-center">
-					{icons[type]}
+					<IconComponent className={`size-8 ${iconColor}`} />
 				</div>
 
 				<div className="flex flex-col gap-0.5">

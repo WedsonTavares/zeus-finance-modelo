@@ -24,7 +24,7 @@ export function TransactionTableItem({
 		<TableRow key={transaction.id}>
 			<TableCell>{transaction.description}</TableCell>
 			{transaction.type === 'expense' ? (
-				<TableCell>- {amount}</TableCell>
+				<TableCell className="text-red-600">- {amount}</TableCell>
 			) : (
 				<TableCell className="text-green-600">{amount}</TableCell>
 			)}
