@@ -107,6 +107,7 @@ Credenciais padrão após o seed:
 - **Senha**: `admin123`
 
 ### 5. Inicie o servidor de desenvolvimento
+
 ```bash
 npm run dev
 ```
