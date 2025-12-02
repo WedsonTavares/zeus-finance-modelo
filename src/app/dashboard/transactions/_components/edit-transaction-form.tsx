@@ -65,9 +65,9 @@ export function EditTransactionForm({
 	})
 
 	function handleUpdateTransaction(values: TransactionFormData) {
-		// Converte datetime-local para ISO mantendo o horário local escolhido
-		// O dayjs interpreta o valor como horário local e converte corretamente para UTC
-		const localDateTime = dayjs(values.paymentDate)
+		// Converte datetime-local para ISO preservando o horário local escolhido pelo usuário
+		// Usa Date nativo para garantir interpretação correta independente do timezone do servidor
+		const localDateTime = new Date(values.paymentDate)
 		
 		updateTransactionAction.execute({
 			id: transaction.id,
