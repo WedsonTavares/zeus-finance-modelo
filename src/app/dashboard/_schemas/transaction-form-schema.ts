@@ -7,7 +7,7 @@ export const transactionFormSchema = z.object({
 		.min(1, { message: 'Valor é obrigatório.' }),
 	type: z.enum(['income', 'expense']),
 	categoryId: z.string().min(1, { message: 'Categoria é obrigatória.' }),
-	paymentDate: z.string().min(1, { message: 'Data é obrigatória.' }),
+	paymentDate: z.string().min(1, { message: 'Data e hora são obrigatórias.' }),
 })
 
 export type TransactionFormData = z.infer<typeof transactionFormSchema>

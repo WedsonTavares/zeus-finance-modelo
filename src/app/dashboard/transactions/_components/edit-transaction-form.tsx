@@ -50,7 +50,7 @@ export function EditTransactionForm({
 			amount: transaction.amountInCents / 100,
 			type: transaction.type,
 			categoryId: transaction.category?.id ?? '',
-			paymentDate: dayjs(transaction.paymentDate).format('YYYY-MM-DD'),
+			paymentDate: dayjs(transaction.paymentDate).format('YYYY-MM-DDTHH:mm'),
 		},
 	})
 
@@ -65,14 +65,9 @@ export function EditTransactionForm({
 	})
 
 	function handleUpdateTransaction(values: TransactionFormData) {
-		// Combina a data selecionada com a hora atual
-		const selectedDate = dayjs(values.paymentDate)
-		const now = dayjs()
-		const dateWithCurrentTime = selectedDate
-			.hour(now.hour())
-			.minute(now.minute())
-			.second(now.second())
-			.millisecond(now.millisecond())
+		// Converte datetime-local para ISO mantendo o horário local escolhido
+		// O dayjs interpreta o valor como horário local e converte corretamente para UTC
+		const localDateTime = dayjs(values.paymentDate)
 		
 		updateTransactionAction.execute({
 			id: transaction.id,
@@ -80,11 +75,9 @@ export function EditTransactionForm({
 			categoryId: values.categoryId,
 			type: values.type,
 			amountInCents: values.amount * 100,
-			paymentDate: dateWithCurrentTime.toISOString(),
+			paymentDate: localDateTime.toISOString(),
 		})
-	}
-
-	return (
+	}	return (
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(handleUpdateTransaction)}
@@ -194,9 +187,9 @@ export function EditTransactionForm({
 					name="paymentDate"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Data de Pagamento</FormLabel>
+							<FormLabel>Data e Hora</FormLabel>
 							<FormControl>
-								<Input type="date" {...field} />
+								<Input type="datetime-local" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
