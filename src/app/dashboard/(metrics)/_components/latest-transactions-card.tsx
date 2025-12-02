@@ -1,3 +1,5 @@
+'use client'
+
 import dayjs from 'dayjs'
 import { EyeIcon, TrendingDownIcon, TrendingUpIcon } from 'lucide-react'
 import { EmptyData } from '@/components/empty-data'
