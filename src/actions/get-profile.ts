@@ -5,6 +5,10 @@ import { COLLECTIONS, type User } from '@/db/schema'
 import { getSession } from '@/lib/auth'
 
 export async function getProfile() {
+	if (process.env.NEXT_PUBLIC_MOCK === '1') {
+		const m = await import('@/mocks/data')
+		return m.profile as { id: string; name: string; imageUrl?: string }
+	}
 	const session = await getSession()
 
 	if (!session?.userId) {

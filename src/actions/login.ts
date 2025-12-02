@@ -21,6 +21,15 @@ const loginSchema = z.object({
 export const login = actionClient
 	.inputSchema(loginSchema)
 	.action(async ({ parsedInput }) => {
+		// If running in mock/demo mode, skip DB and accept demo user
+		if (process.env.NEXT_PUBLIC_MOCK === '1') {
+			const m = await import('@/mocks/data')
+			const demoUserId = m.profile?.id ?? 'user_demo'
+			await createSession(demoUserId)
+			redirect('/dashboard')
+			return
+		}
+
 		const db = await getDb()
 		const user = await db
 			.collection<User>(COLLECTIONS.USERS)

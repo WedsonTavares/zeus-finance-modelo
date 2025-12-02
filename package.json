@@ -5,6 +5,8 @@
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",
+		"build:mock": "cross-env NEXT_PUBLIC_MOCK=1 next build",
+		"export:mock": "cross-env NEXT_PUBLIC_MOCK=1 next build && cross-env NEXT_PUBLIC_MOCK=1 next export",
 		"start": "next start",
 		"lint": "next lint",
 		"db:seed": "tsx src/db/seed.ts"
@@ -53,6 +55,7 @@
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"tailwindcss": "^4",
+		"cross-env": "^7.0.3",
 		"tsx": "^4.20.3",
 		"tw-animate-css": "^1.3.6",
 		"typescript": "^5"

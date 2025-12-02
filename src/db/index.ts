@@ -1,29 +1,39 @@
 import { MongoClient } from 'mongodb'
 
-if (!process.env.MONGODB_URI) {
-	throw new Error('MONGODB_URI não está definido nas variáveis de ambiente')
-}
+let clientPromise: Promise<MongoClient> | null = null
 
-const client = new MongoClient(process.env.MONGODB_URI)
-
-let clientPromise: Promise<MongoClient>
-
-if (process.env.NODE_ENV === 'development') {
-	// Em desenvolvimento, use uma variável global para preservar o cliente entre hot reloads
-	const globalWithMongo = global as typeof globalThis & {
-		_mongoClientPromise?: Promise<MongoClient>
+async function createClientPromise() {
+	const uri = process.env.MONGODB_URI
+	if (!uri) {
+		throw new Error('MONGODB_URI não está definido nas variáveis de ambiente')
 	}
 
-	if (!globalWithMongo._mongoClientPromise) {
-		globalWithMongo._mongoClientPromise = client.connect()
+	const client = new MongoClient(uri)
+
+	if (process.env.NODE_ENV === 'development') {
+		const globalWithMongo = global as typeof globalThis & {
+			_mongoClientPromise?: Promise<MongoClient>
+		}
+
+		if (!globalWithMongo._mongoClientPromise) {
+			globalWithMongo._mongoClientPromise = client.connect()
+		}
+		return globalWithMongo._mongoClientPromise
 	}
-	clientPromise = globalWithMongo._mongoClientPromise
-} else {
-	// Em produção, sempre crie uma nova conexão
-	clientPromise = client.connect()
+
+	return client.connect()
 }
 
 export async function getDb() {
+	// Ensure we only require a DB when not in mock mode
+	if (!process.env.MONGODB_URI && process.env.NEXT_PUBLIC_MOCK === '1') {
+		throw new Error('getDb should not be called in mock mode')
+	}
+
+	if (!clientPromise) {
+		clientPromise = createClientPromise()
+	}
+
 	const client = await clientPromise
 	return client.db('zeusfinance')
 }

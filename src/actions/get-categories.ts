@@ -6,6 +6,10 @@ import { getSession } from '@/lib/auth'
 import type { Category } from '@/types/category'
 
 export async function getCategories() {
+	if (process.env.NEXT_PUBLIC_MOCK === '1') {
+		const m = await import('@/mocks/data')
+		return m.categories as Category[]
+	}
 	const session = await getSession()
 
 	if (!session?.userId) {

@@ -11,6 +11,16 @@ type GetTransactionsParams = {
 }
 
 export async function getTransactions({ month, year }: GetTransactionsParams) {
+	// Mock mode for static/demo builds
+	if (process.env.NEXT_PUBLIC_MOCK === '1') {
+		const m = await import('@/mocks/data')
+		const filtered = m.transactions.filter((t: any) => {
+			const d = new Date(t.paymentDate)
+			return d.getMonth() === month && d.getFullYear() === year
+		})
+
+		return filtered as Transaction[]
+	}
 	const session = await getSession()
 
 	if (!session?.userId) {
