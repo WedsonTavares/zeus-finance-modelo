@@ -17,6 +17,7 @@ import {
 	ChartTooltip,
 } from '@/components/ui/chart'
 import type { Transaction } from '@/types/transaction'
+import { months } from '@/constants/months'
 
 const chartConfig = {
 	income: {
@@ -31,9 +32,11 @@ const chartConfig = {
 
 type MonthlyBalanceCardProps = {
 	transactions: Transaction[]
+	month?: number
+	year?: number
 }
 
-export function MonthlyBalanceCard({ transactions }: MonthlyBalanceCardProps) {
+export function MonthlyBalanceCard({ transactions, month, year }: MonthlyBalanceCardProps) {
 	const total = transactions.reduce(
 		(acc, transaction) => {
 			if (transaction.type === 'income') {
@@ -71,7 +74,7 @@ export function MonthlyBalanceCard({ transactions }: MonthlyBalanceCardProps) {
 			<CardHeader className="items-center pb-0">
 				<CardTitle>Resumo do mês</CardTitle>
 				<CardDescription>
-					Vejo o quanto você ganhou e gastou no mês de agosto.
+					Vejo o quanto você ganhou e gastou no mês de {typeof month === 'number' ? months[month].toLowerCase() : months[new Date().getMonth()].toLowerCase()}.
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="flex-1 pb-4">

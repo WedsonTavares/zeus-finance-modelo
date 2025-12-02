@@ -17,13 +17,13 @@ export default async function Home({ searchParams }: HomeProps) {
 
 	return (
 		<>
-			<Summary transactions={transactions} />
+				<Summary transactions={transactions} />
 
-			<div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-				<MonthlyBalanceCard transactions={transactions} />
-				<ExpensesByCategoryCard transactions={transactions} />
-				<LatestTransactionsCard transactions={transactions} />
-			</div>
-		</>
+				<div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+					<MonthlyBalanceCard transactions={transactions} month={month} year={year} />
+					<ExpensesByCategoryCard transactions={transactions} />
+					<LatestTransactionsCard transactions={transactions} />
+				</div>
+			</>
 	)
 }
