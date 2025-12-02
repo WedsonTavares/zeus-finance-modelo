@@ -77,7 +77,7 @@ export function TransactionCard({ transaction }: { transaction: Transaction }) {
 					<div className="flex items-center gap-2 text-xs text-muted-foreground">
 						<span>{transaction.category?.name ?? 'Sem categoria'}</span>
 						<span>•</span>
-						<span>{dayjs(transaction.paymentDate).format('DD/MM/YYYY')}</span>
+						<span>{new Date(transaction.paymentDate).toLocaleDateString('pt-BR')}</span>
 					</div>
 				</div>
 			</div>
