@@ -77,7 +77,13 @@ export function TransactionCard({ transaction }: { transaction: Transaction }) {
 					<div className="flex items-center gap-2 text-xs text-muted-foreground">
 						<span>{transaction.category?.name ?? 'Sem categoria'}</span>
 						<span>•</span>
-						<span>{new Date(transaction.paymentDate).toLocaleDateString('pt-BR')}</span>
+						<span>{(() => {
+							const date = new Date(transaction.paymentDate)
+							const day = date.getDate().toString().padStart(2, '0')
+							const month = (date.getMonth() + 1).toString().padStart(2, '0')
+							const year = date.getFullYear()
+							return `${day}/${month}/${year}`
+						})()}</span>
 					</div>
 				</div>
 			</div>
