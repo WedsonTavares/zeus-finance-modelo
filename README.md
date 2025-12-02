@@ -2,6 +2,9 @@
 
 <img width="1920" height="963" alt="Dashboard" src="./src/assets/dashboard.png" />
 
+[![Ver demo](https://img.shields.io/badge/Ver%20Demo-poetic-centaur--37e15f.netlify.app-brightgreen)](https://poetic-centaur-37e15f.netlify.app)
+
+
 Um sistema de controle financeiro pessoal moderno e intuitivo, desenvolvido com Next.js 15 e tecnologias de ponta.
 
 ## ✨ Funcionalidades
